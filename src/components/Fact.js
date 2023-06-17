@@ -25,6 +25,47 @@ function Fact({
         else alert("there was a problem voting")
 
     }
+
+    return (
+        <li className="fact">
+          <p>
+            {isDisputed ? <span className="disputed">[⛔️ Disputed]</span> : null}
+            {fact.text}
+            <a className="source" href={fact.source} target="_blank">
+              (Source)
+            </a>
+          </p>
+          <span
+            className="tag"
+            style={{
+              backgroundColor: categories.find((cat) => cat.name === fact.category)
+                .color,
+            }}
+            onClick={() => {
+              setCurrentCategory(fact.category);
+            }}
+          >
+            {fact.category}
+          </span>
+          <div className="vote-buttons">
+            <button
+              onClick={() => handleVote("votesInteresting")}
+              disabled={isUploading}
+            >
+              👍 {fact.votesInteresting}
+            </button>
+            <button
+              onClick={() => handleVote("votesMindblowing")}
+              disabled={isUploading}
+            >
+              🤯 {fact.votesMindblowing}
+            </button>
+            <button onClick={() => handleVote("votesFalse")} disabled={isUploading}>
+              ⛔️ {fact.votesFalse}
+            </button>
+          </div>
+        </li>
+      );
 }
 
 
