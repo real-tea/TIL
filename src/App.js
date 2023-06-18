@@ -30,7 +30,7 @@ function App() {
 
   useEffect(
     function(){
-      async function getDate(){
+      async function getData(){
         setIsLoading(true);
 
         let query = supabase.from("facts").select("*");
@@ -55,9 +55,40 @@ function App() {
   )
 
   return (
-    <div className="App">
-    
-    </div>
+    <>
+    <Header showForm={showForm} setShowForm={setShowForm} />
+    {showForm ? (
+      <NewFactForm
+        categories={CATEGORIES}
+        setShowForm={setShowForm}
+        setFacts={setFacts}
+        setCurrentCategory={setCurrentCategory}
+        currentCategory={currentCategory}
+      />
+    ) : null}
+
+    <main className="main">
+      <CategoryFilter
+        setOrder={setOrder}
+        categories={CATEGORIES}
+        setCurrentCategory={setCurrentCategory}
+        isLoading={isLoading}
+      />
+
+      {isError ? (
+        <Error />
+      ) : isLoading ? (
+        <Loader />
+      ) : (
+        <FactsList
+          setCurrentCategory={setCurrentCategory}
+          facts={facts}
+          setFacts={setFacts}
+          categories={CATEGORIES}
+        />
+      )}
+    </main>
+  </>
   );
 }
 
