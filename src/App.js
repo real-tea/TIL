@@ -43,7 +43,9 @@ function App() {
           .order(`votes${order}`,{ascending : false})
           .limit(50);
         
-        if(!error) setFacts(facts);
+        if(!error) {
+          console.log(error)
+          setFacts(facts);}
         else isSetError(true);
 
         setIsLoading(false);
@@ -76,7 +78,7 @@ function App() {
       />
 
       {isError ? (
-        <Error />
+        `${console.log(isError)}`
       ) : isLoading ? (
         <Loader />
       ) : (
